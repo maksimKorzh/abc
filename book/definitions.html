@@ -130,13 +130,13 @@ castling_side[BLACK][1] = BQC = 8</code></pre>
             <p>This table associates each square of the 0x88 board with a castling-rights mask. Most squares have the value <code>15</code>, meaning that moving a piece from that square does not remove any castling right. The special values occur on the king and rook starting squares, because moving one of those pieces can permanently remove a castling right.</p>
             <p>For example, the starting squares on the first rank have the important values:</p>
             <pre><code>A1 = 13
-E1 = 3
+E1 = 12
 H1 = 14
 
 A8 = 7
-E8 = 12
+E8 = 3
 H8 = 11</code></pre>
-            <p>These numbers are themselves combinations of the same four castling bits. For example, <code>E1 = 3</code> is binary <code>0011</code>, which contains both White castling flags. This makes sense because moving the White king from <code>E1</code> removes both kingside and queenside castling rights.</p>
+            <p>These numbers are themselves combinations of the same four castling bits. For example, <code>E1 = 12</code> is binary <code>1100</code>, which clears both White castling flags. This makes sense because moving the White king from <code>E1</code> removes both kingside and queenside castling rights.</p>
             <p>Likewise, <code>H1 = 14</code> is <code>1110</code>. The <code>WKC</code> bit is cleared, while the other three rights remain available. Moving the rook from <code>H1</code> therefore removes only White's kingside castling right.</p>
             <p>The same principle applies to <code>A1</code>, <code>E8</code>, <code>A8</code>, and <code>H8</code>. Each of these squares has a mask designed to remove exactly the castling rights affected by moving a king or rook from that starting square.</p>
             <p>The table therefore gives ABC a compact way to update castling rights whenever a move involves a particular square. Instead of writing separate rules for every king and rook starting square, the engine can use the mask associated with the square and combine it with the current <code>castle</code> value.</p>
