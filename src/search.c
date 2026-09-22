@@ -265,16 +265,17 @@ int search_position(int depth)
             printf("info score mate %d depth %d nodes %ld time %d pv ", (49000 - score) / 2 + 1, current_depth, nodes, get_time_ms() - start);   
         else printf("info score cp %d depth %d nodes %ld time %d pv ", score, current_depth, nodes, get_time_ms() - start);
         
-        //printf("info score cp %d depth %d nodes %ld pv ", score, current_depth, nodes);
+        // Print PV line
         for (int i = 0; i < pv_length[0]; i++) {
             int move = pv_table[0][i];
             print_move(get_move_source(move), get_move_target(move), get_move_promoted(move));
+            if (i < pv_length[0]-1) printf(" ");
         } printf("\n"); fflush(stdout);
     }
 
 	// print best move
     int move = pv_table[0][0];
-    printf("\nbestmove ");
+    printf("bestmove ");
     print_move(get_move_source(move), get_move_target(move), get_move_promoted(move));
     printf("\n");
 }

@@ -97,6 +97,6 @@ void print_board() {
 void print_move(int source, int target, int promoted) {
     char *src = square_to_coords[source];
     char *dst = square_to_coords[target];
-    if (promoted) printf("%s%s%c ", src, dst, promoted_pieces[promoted]);
-    else printf("%s%s ", src, dst);
+    if (promoted) printf("%s%s%c", src, dst, promoted_pieces[promoted]);
+    else printf("%s%s", src, dst);
 }

@@ -453,16 +453,17 @@ else printf("info score cp %d depth %d nodes %lld time %d pv ", score, current_d
             <p>After every completed iteration, ABC reports the result using the UCI <code>info</code> format. A normal evaluation is reported as centipawns with <code>score cp</code>. Scores close to the mate range are converted into a mate distance and reported with <code>score mate</code>.</p>
             <p>The engine also reports the completed search depth, number of nodes searched, elapsed time, and principal variation. This information allows a UCI chess interface to display what the engine is currently thinking about.</p>
             <h4>Printing the Principal Variation</h4>
-            <pre><code>for (int i = 0; i &lt; pv_length[0]; i++) {
+            <pre><code>for (int i = 0; i < pv_length[0]; i++) {
     int move = pv_table[0][i];
     print_move(get_move_source(move), get_move_target(move), get_move_promoted(move));
+    if (i < pv_length[0]-1) printf(" ");
 } printf("\n"); fflush(stdout);</code></pre>
             <p>The principal variation stored at the root is converted back into UCI move notation using <code>print_move()</code>. The PV is the line of moves that the search currently considers best, so it gives the GUI a human-readable view of the engine's calculation.</p>
             <p><code>fflush(stdout)</code> is important here because UCI communication is interactive. ABC immediately sends its output to the GUI instead of allowing it to remain buffered.</p>
             <h4>Returning the Best Move</h4>
             <pre><code>// print best move
 int move = pv_table[0][0];
-printf("\nbestmove ");
+printf("bestmove ");
 print_move(get_move_source(move), get_move_target(move), get_move_promoted(move));
 printf("\n");</code></pre>
             <p>Once iterative deepening finishes, the first move of the root principal variation is the engine's chosen move. ABC prints it using the UCI <code>bestmove</code> command, completing the communication required by the GUI.</p>

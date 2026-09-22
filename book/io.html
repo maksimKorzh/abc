@@ -120,8 +120,8 @@ printf("    Hash:        %d\n\n", generate_hash_key());</code></pre>
             <pre><code>void print_move(int source, int target, int promoted) {
     char *src = square_to_coords[source];
     char *dst = square_to_coords[target];
-    char prom = promoted_pieces[promoted];
-    printf("%s%s%c ", src, dst, prom);
+    if (promoted) printf("%s%s%c", src, dst, promoted_pieces[promoted]);
+    else printf("%s%s", src, dst);
 }</code></pre>
             <p>Internally, ABC represents a move using numerical square indices. The <code>source</code> and <code>target</code> values therefore need to be converted back into algebraic coordinates before the move can be displayed.</p>
             <pre><code>char *src = square_to_coords[source];
@@ -131,7 +131,7 @@ char *dst = square_to_coords[target];</code></pre>
             <pre><code>char prom = promoted_pieces[promoted];</code></pre>
             <p>For an ordinary move, this value is simply the character associated with the empty promotion value. For a promotion, it becomes <code>q</code>, <code>r</code>, <code>b</code>, or <code>n</code>, producing the standard UCI representation.</p>
             <p>Finally, the three components are printed together:</p>
-            <pre><code>printf("%s%s%c ", src, dst, prom);</code></pre>
+            <pre><code>printf("%s%s%c", src, dst, prom);</code></pre>
             <p>A move such as <code>e2e4</code> can therefore be produced from the internal source and target squares, while a promotion such as <code>e7e8q</code> additionally includes the promoted piece.</p>
             <p>This small function completes the basic input and output helpers in <code>io.c</code>. Positions can be read from FEN, the internal board can be inspected in the console, and individual moves can be converted back into the notation expected by the outside world.</p>
             <nav class="chapter-nav-bottom">
